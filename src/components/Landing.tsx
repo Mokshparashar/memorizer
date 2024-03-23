@@ -7,12 +7,12 @@ function Landing() {
         Your daily routine memorizer initiate just by saying_
       </h1>
       <div className="flex items-center justify-center flex-col mt-8 gap-4">
-        <Link
-          to="/signup"
+        <button
+          onClick={}
           className="bg-blue-500 text-white w-1/2 py-2 rounded-sm border-blue-500 border-2 text-center"
         >
           Sign up
-        </Link>
+        </button>
         <Link
           to="/login"
           className="border-blue-500 border-2 text-blue-500 w-1/2 py-2 rounded-sm text-center"
