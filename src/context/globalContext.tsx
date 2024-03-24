@@ -1,19 +1,31 @@
 import React, { createContext, useContext, useState } from "react";
 
-
-const MyContext = createContext();
-
-function globalContext:React.FC({ children }) {
-  const [isSignupOpen, setIsSignupOpen] = useState();
-  return (
-    <myContext.Provider value={{ isSignupOpen, setIsSignupOpen }}>
-      {children}
-    </myContext.Provider>
-  );
+interface InitialValueInterface {
+  isSignupOpen: boolean | null;
+  setIsSignupOpen: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 
-export default globalContext;
+const MyContext = createContext<InitialValueInterface | undefined>(undefined);
 
-export const useGlobalContext = () => {
-  return useContext(MyContext);
+const GlobalContext: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [isSignupOpen, setIsSignupOpen] = useState<boolean | null>(false);
+  const ContextValue: InitialValueInterface = {
+    isSignupOpen,
+    setIsSignupOpen,
+  };
+  return (
+    <MyContext.Provider value={ContextValue}>{children}</MyContext.Provider>
+  );
+};
+
+export default GlobalContext;
+
+export const useGlobalContext = (): InitialValueInterface => {
+  const context = useContext(MyContext);
+  if (!context) {
+    throw new Error("useAppContext must be used within an AppProvider");
+  }
+  return context;
 };

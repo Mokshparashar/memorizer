@@ -9,6 +9,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  overflow-x: hidden;
+}
 .font-600 {
   font-weight: 600;
 }
@@ -23,8 +26,17 @@
 }
 
 .blur-parent-bg {
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(2px);
+  background-color: rgba(225, 225, 225, 0.5);
+  backdrop-filter: blur(10px);
 }
-.blur-child-bg {
+
+.universal-hidden-sidebar {
+  position: absolute;
+  left: 100%;
+  transition: all 0.5s;
+}
+.universal-visible-sidebar {
+  position: absolute;
+  left: 0;
+  transition: all 0.5s;
 }
