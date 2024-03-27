@@ -1,6 +1,7 @@
 import Landing from "./Landing";
 import Navbar from "./Navbar";
 import Signup from "./auth/signup";
+import Login from "./auth/Login";
 
 function LandingPage() {
   return (
@@ -8,6 +9,7 @@ function LandingPage() {
       <Navbar />
       <Landing />
       <Signup />
+      <Login />
     </>
   );
 }

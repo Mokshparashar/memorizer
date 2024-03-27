@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context/globalContext";
 
 function Landing() {
   const { setIsSignupOpen } = useGlobalContext();
+  const { setIsLoginOpen } = useGlobalContext();
   return (
     <div className="">
       <h1 className="font-600 uppercase w-full m-auto px-4  text-center mt-6 text-lg">
@@ -15,12 +15,12 @@ function Landing() {
         >
           Sign up
         </button>
-        <Link
-          to="/login"
+        <button
           className="border-blue-500 border-2 text-blue-500 w-1/2 py-2 rounded-sm text-center"
+          onClick={() => setIsLoginOpen(true)}
         >
           Login
-        </Link>
+        </button>
       </div>
     </div>
   );
