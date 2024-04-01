@@ -1,9 +1,36 @@
 import { useGlobalContext } from "../../context/globalContext";
 import { RxCross1 } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
+import { globalInstance } from "../../api/globalInstance";
+import React, { useState } from "react";
+import ButtonLoader from "../loaders/ButtonLoader";
 
-function Signup() {
-  const { setIsSignupOpen, isSignupOpen } = useGlobalContext();
+const Signup: React.FC = () => {
+  const { setIsSignupOpen, isSignupOpen, buttonLoading, setButtonLoading } =
+    useGlobalContext();
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  // let [formData, setFormData] = useState<FormData>(Object);
+  const formData: FormDataInterface = {
+    name,
+    email,
+    password,
+    confirmPassword,
+  };
+
+  async function handleSingupRequest() {
+    console.log(formData);
+    setButtonLoading(true);
+
+    await globalInstance.post("/api/v1/users/register", formData);
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setButtonLoading(false);
+  }
 
   return (
     <div
@@ -13,7 +40,7 @@ function Signup() {
     >
       <div className="flex items-center justify-between px-6">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
-          Create account{" "}
+          Create account
         </h1>
         <div>
           <RxCross1
@@ -34,27 +61,36 @@ function Signup() {
             type="text"
             className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
             placeholder="Your name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             type="email"
             className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
             placeholder="your Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
             placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <input
             type="password"
             className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
             placeholder="confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <button
             type="submit"
             className="border border-blue-500 w-full h-10 relative bg-blue-500 text-white rounded-sm"
+            onClick={handleSingupRequest}
           >
-            Create
+            {buttonLoading ? <ButtonLoader /> : "Create"}
           </button>
         </div>
         <div>
@@ -71,6 +107,6 @@ function Signup() {
       </div>
     </div>
   );
-}
+};
 
 export default Signup;

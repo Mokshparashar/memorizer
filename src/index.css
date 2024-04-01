@@ -44,3 +44,20 @@ body {
   transition: all 0.5s;
   display: block;
 }
+
+.buttonLoader {
+  animation-name: buttonLoader;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+@keyframes buttonLoader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
