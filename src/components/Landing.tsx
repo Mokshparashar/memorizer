@@ -8,7 +8,10 @@ function Landing() {
       <h1 className="font-600 uppercase w-full m-auto px-4  text-center mt-6 text-lg">
         Your daily routine memorizer initiate just by saying_
       </h1>
-      <img src="../../public/Landing_img.png" alt="img" />
+      <img
+        src="https://res.cloudinary.com/dd43id5pp/image/upload/v1711971284/nb9i4onopsodjvpdrpd0.png"
+        alt="img"
+      />
       <div className="flex items-center justify-center flex-col mt-8 gap-4">
         <button
           onClick={() => setIsSignupOpen(true)}
