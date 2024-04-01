@@ -4,6 +4,8 @@ import { FcGoogle } from "react-icons/fc";
 import { globalInstance } from "../../api/globalInstance";
 import React, { useState } from "react";
 import ButtonLoader from "../loaders/ButtonLoader";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup: React.FC = () => {
   const { setIsSignupOpen, isSignupOpen, buttonLoading, setButtonLoading } =
@@ -24,12 +26,25 @@ const Signup: React.FC = () => {
     console.log(formData);
     setButtonLoading(true);
 
-    await globalInstance.post("/api/v1/users/register", formData);
+    const data = await globalInstance.post("/api/v1/users/register", formData);
+    console.log(data);
+
     setName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
     setButtonLoading(false);
+    toast.success(`Welcome ${data?.data?.userData?.name}`, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   }
 
   return (
@@ -38,6 +53,7 @@ const Signup: React.FC = () => {
         isSignupOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
       } w-full h-full blur-parent-bg relative z-20 top-0`}
     >
+      <ToastContainer />
       <div className="flex items-center justify-between px-6">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
           Create account
@@ -63,6 +79,7 @@ const Signup: React.FC = () => {
             placeholder="Your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            autoComplete="off"
           />
           <input
             type="email"
