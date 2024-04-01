@@ -4,11 +4,11 @@ function Landing() {
   const { setIsSignupOpen } = useGlobalContext();
   const { setIsLoginOpen } = useGlobalContext();
   return (
-    <div className="">
+    <div className=" ">
       <h1 className="font-600 uppercase w-full m-auto px-4  text-center mt-6 text-lg">
         Your daily routine memorizer initiate just by saying_
       </h1>
-      <img src="../../public/Landing_img.png" alt="" />
+      <img src="../../public/Landing_img.png" alt="img" />
       <div className="flex items-center justify-center flex-col mt-8 gap-4">
         <button
           onClick={() => setIsSignupOpen(true)}

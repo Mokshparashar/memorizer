@@ -10,6 +10,7 @@
   box-sizing: border-box;
 }
 body {
+  width: 100vw;
   overflow-x: hidden;
 }
 .font-600 {
@@ -31,12 +32,15 @@ body {
 }
 
 .universal-hidden-sidebar {
+  display: none;
   position: absolute;
-  left: 100%;
+
+  transform: translateX(100%);
   transition: all 0.5s;
 }
 .universal-visible-sidebar {
   position: absolute;
-  left: 0;
+  transform: translateX(0px);
   transition: all 0.5s;
+  display: block;
 }

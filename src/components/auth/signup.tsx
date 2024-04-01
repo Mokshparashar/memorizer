@@ -9,7 +9,7 @@ function Signup() {
     <div
       className={`${
         isSignupOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
-      } w-screen h-screen blur-parent-bg absolute z-20 top-0`}
+      } w-full h-full blur-parent-bg relative z-20 top-0`}
     >
       <div className="flex items-center justify-between px-6">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">

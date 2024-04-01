@@ -5,12 +5,12 @@ import Login from "./auth/Login";
 
 function LandingPage() {
   return (
-    <>
+    <div className="sm:overflow-x-hidden ">
       <Navbar />
       <Landing />
       <Signup />
       <Login />
-    </>
+    </div>
   );
 }
 
