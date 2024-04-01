@@ -34,17 +34,31 @@ const Signup: React.FC = () => {
     setPassword("");
     setConfirmPassword("");
     setButtonLoading(false);
-    toast.success(`Welcome ${data?.data?.userData?.name}`, {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
+    if (!data?.data?.ok) {
+      toast.error(data?.data?.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
 
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: Bounce,
-    });
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    } else {
+      toast.success(`Welcome ${data?.data?.userData?.name}`, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   }
 
   return (
