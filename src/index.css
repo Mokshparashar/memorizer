@@ -28,7 +28,7 @@ body {
 
 .blur-parent-bg {
   background-color: rgba(225, 225, 225, 0.5);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(3px);
 }
 
 .universal-hidden-sidebar {

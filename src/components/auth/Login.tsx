@@ -11,7 +11,7 @@ function Login() {
         isLoginOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
       } w-screen h-screen blur-parent-bg relative z-20 top-0`}
     >
-      <div className="flex items-center justify-between px-6">
+      <div className="flex items-center justify-between px-6 pt-4">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
           Welcome back{" "}
         </h1>
@@ -27,12 +27,12 @@ function Login() {
         <div className=" blur-child-bg w-5/6 m-auto flex items-center justify-start pt-16 gap-4 flex-col  h-2/3 ">
           <input
             type="email"
-            className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
+            className="outline-none border border-solid border-blue-500 w-full h-12 rounded-md pl-4"
             placeholder="your Email"
           />
           <input
             type="password"
-            className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
+            className="outline-none border border-solid border-blue-500 w-full h-12 rounded-md pl-4"
             placeholder="password"
           />
 
@@ -51,7 +51,7 @@ function Login() {
           </div>
           <div className="w-full flex items-center justify-between m-auto border-2 border-blue-500 px-6 mt-6 py-2 rounded-sm ">
             <FcGoogle className="w-8 h-8 mr-2" />
-            <h2 className="font-600">Login with Google</h2>
+            <h2 className="font-500">Login with Google</h2>
           </div>
         </div>
       </div>

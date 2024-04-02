@@ -2,7 +2,7 @@ import { useGlobalContext } from "../../context/globalContext";
 import { RxCross1 } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
 import { globalInstance } from "../../api/globalInstance";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import ButtonLoader from "../loaders/ButtonLoader";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,6 +14,8 @@ const Signup: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const [emailError, setEmailError] = useState<string>("");
   // let [formData, setFormData] = useState<FormData>(Object);
   const formData: FormDataInterface = {
     name,
@@ -22,8 +24,33 @@ const Signup: React.FC = () => {
     confirmPassword,
   };
 
-  async function handleSingupRequest() {
+  async function handleSingupRequest(e: FormEvent) {
+    e.preventDefault();
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email) {
+      setEmailError("*Email is required");
+      throw new Error(" email required");
+    } else if (!regex.test(email)) {
+      setEmailError("*Invalid email format");
+      throw new Error(" email format invalid");
+    } else {
+      setEmailError("");
+    }
     console.log(formData);
+    if (password !== confirmPassword) {
+      toast.error("passwords do not match", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      throw new Error("password dont't match");
+    }
     setButtonLoading(true);
 
     const data = await globalInstance.post("/api/v1/users/register", formData);
@@ -38,7 +65,7 @@ const Signup: React.FC = () => {
       toast.error(data?.data?.message, {
         position: "top-center",
         autoClose: 3000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
 
         draggable: true,
@@ -50,7 +77,7 @@ const Signup: React.FC = () => {
       toast.success(`Welcome ${data?.data?.userData?.name}`, {
         position: "top-center",
         autoClose: 3000,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
 
         draggable: true,
@@ -68,13 +95,13 @@ const Signup: React.FC = () => {
       } w-full h-full blur-parent-bg relative z-20 top-0`}
     >
       <ToastContainer />
-      <div className="flex items-center justify-between px-6">
+      <div className="flex items-center justify-between px-6 pt-4">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
           Create account
         </h1>
         <div>
           <RxCross1
-            className="w-6 h-6 text-red-500 font-extrabold"
+            className="w-6 h-6 text-red-600 font-black"
             onClick={() => setIsSignupOpen(false)}
           />
         </div>
@@ -87,35 +114,53 @@ const Signup: React.FC = () => {
       /> */}
       <div className="flex items-center justify-between flex-col gap-20">
         <div className=" blur-child-bg w-5/6 m-auto flex items-center justify-start pt-16 gap-4 flex-col  h-2/3 ">
-          <input
-            type="text"
-            className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
-            placeholder="Your name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            autoComplete="off"
-          />
-          <input
-            type="email"
-            className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
-            placeholder="your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <input
-            type="password"
-            className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
-            placeholder="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <input
-            type="password"
-            className="outline-none border-2 border-solid border-blue-500 w-full h-12 rounded-md pl-4"
-            placeholder="confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
+          <div className="w-full">
+            <input
+              type="text"
+              className="outline-none border border-solid border-blue-500 w-full h-12 rounded-md pl-4"
+              placeholder="Your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              disabled={buttonLoading ? true : false}
+            />
+          </div>
+          <div className="w-full">
+            <input
+              type="email"
+              className="outline-none border border-solid border-blue-500 w-full h-12 rounded-md pl-4"
+              placeholder="your Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={buttonLoading ? true : false}
+              required
+            />
+            <span className="text-red-500 font-normal text-sm">
+              {emailError}
+            </span>
+          </div>
+          <div className="w-full">
+            <input
+              type="password"
+              className="outline-none border border-solid border-blue-500 w-full h-12 rounded-md pl-4"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={buttonLoading ? true : false}
+              required
+            />
+          </div>
+          <div className="w-full">
+            <input
+              type="password"
+              className="outline-none border border-solid border-blue-500 w-full h-12 rounded-md pl-4"
+              placeholder="confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              disabled={buttonLoading ? true : false}
+              required
+            />
+          </div>
           <button
             type="submit"
             className="border border-blue-500 w-full h-10 relative bg-blue-500 text-white rounded-sm"
@@ -132,7 +177,7 @@ const Signup: React.FC = () => {
           </div>
           <div className="w-full flex items-center justify-between m-auto border-2 border-blue-500 px-6 mt-6 py-2 rounded-sm ">
             <FcGoogle className="w-8 h-8 mr-2" />
-            <h2 className="font-600">Signup with Google</h2>
+            <h2 className="font-500 ">Signup with Google</h2>
           </div>
         </div>
       </div>
