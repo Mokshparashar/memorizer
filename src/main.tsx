@@ -6,11 +6,16 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LandingPage from "./components/LandingPage.tsx";
 
 import GlobalContext from "./context/globalContext.tsx";
+import Dashboard from "./components/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(
