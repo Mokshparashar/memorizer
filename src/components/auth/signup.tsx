@@ -16,6 +16,8 @@ const Signup: React.FC = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const [emailError, setEmailError] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [nameError, setNameError] = useState<string>("");
   // let [formData, setFormData] = useState<FormData>(Object);
   const formData: FormDataInterface = {
     name,
@@ -26,6 +28,13 @@ const Signup: React.FC = () => {
 
   async function handleSingupRequest(e: FormEvent) {
     e.preventDefault();
+
+    if (!name) {
+      setNameError("*Name is required");
+      throw new Error("name is required");
+    } else {
+      setNameError("");
+    }
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
       setEmailError("*Email is required");
@@ -36,6 +45,17 @@ const Signup: React.FC = () => {
     } else {
       setEmailError("");
     }
+
+    if (!password) {
+      setPasswordError("*Password is required");
+      throw new Error("password is required");
+    } else if (password.length !== 6 || password.length < 6) {
+      setPasswordError("*Password length should not be less than 6 ");
+      throw new Error("password lenth is concern due to security reasons");
+    } else {
+      setPasswordError("");
+    }
+
     console.log(formData);
     if (password !== confirmPassword) {
       toast.error("passwords do not match", {
@@ -95,7 +115,7 @@ const Signup: React.FC = () => {
       } w-full h-full blur-parent-bg relative z-20 top-0`}
     >
       <ToastContainer />
-      <div className="flex items-center justify-between px-6 pt-4">
+      <div className="w-full flex items-center justify-between px-6 pt-4">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
           Create account
         </h1>
@@ -124,6 +144,9 @@ const Signup: React.FC = () => {
               required
               disabled={buttonLoading ? true : false}
             />
+            <span className="text-red-500 font-normal text-sm">
+              {nameError}
+            </span>
           </div>
           <div className="w-full">
             <input
@@ -149,6 +172,9 @@ const Signup: React.FC = () => {
               disabled={buttonLoading ? true : false}
               required
             />
+            <span className="text-red-500 font-normal text-sm">
+              {passwordError}
+            </span>
           </div>
           <div className="w-full">
             <input
