@@ -49,7 +49,7 @@ const Signup: React.FC = () => {
     if (!password) {
       setPasswordError("*Password is required");
       throw new Error("password is required");
-    } else if (password.length !== 6 || password.length < 6) {
+    } else if (password.length < 6) {
       setPasswordError("*Password length should not be less than 6 ");
       throw new Error("password lenth is concern due to security reasons");
     } else {
