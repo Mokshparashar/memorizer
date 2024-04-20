@@ -50,7 +50,6 @@ function Login() {
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
-
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -62,7 +61,6 @@ function Login() {
           autoClose: 3000,
           hideProgressBar: true,
           closeOnClick: true,
-
           draggable: true,
           progress: undefined,
           theme: "light",
@@ -80,7 +78,18 @@ function Login() {
         isLoginOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
       } w-screen h-screen blur-parent-bg relative z-20 top-0`}
     >
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="flex items-center justify-between px-6 pt-4">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
           Welcome back{" "}

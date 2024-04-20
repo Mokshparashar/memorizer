@@ -114,7 +114,18 @@ const Signup: React.FC = () => {
         isSignupOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
       } w-full h-full blur-parent-bg relative z-20 top-0`}
     >
-      <ToastContainer />
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="w-full flex items-center justify-between px-6 pt-4">
         <h1 className=" bg-transparent  z-10  text-2xl text-blue-800 border-b-2 border-blue-800">
           Create account
