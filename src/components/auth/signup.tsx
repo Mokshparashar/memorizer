@@ -112,7 +112,7 @@ const Signup: React.FC = () => {
     <div
       className={`${
         isSignupOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
-      } w-full h-full blur-parent-bg relative z-20 top-0`}
+      } w-full h-full bg-white relative z-20 top-0`}
     >
       <ToastContainer
         position="top-center"
