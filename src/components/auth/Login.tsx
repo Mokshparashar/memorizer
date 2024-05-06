@@ -2,11 +2,11 @@ import { useGlobalContext } from "../../context/globalContext";
 import { RxCross1 } from "react-icons/rx";
 import { FcGoogle } from "react-icons/fc";
 import { globalInstance } from "../../api/globalInstance";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
-import { Bounce, ToastContainer, toast } from "react-toastify";
 import ButtonLoader from "../loaders/ButtonLoader";
 import { useNavigate } from "react-router-dom";
+import ErrorComp from "../events/Error";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,12 +17,15 @@ function Login() {
   const [password, setPassword] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const [responseData, setResponseData] = useState<LoginDataInterface>();
+  const [errorModal, setErrorModal] = useState<boolean>();
 
   const formData = {
     email,
     password,
   };
-  const handleLogin = async () => {
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault();
     try {
       const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!email) {
@@ -44,67 +47,33 @@ function Login() {
       setButtonLoading(true);
       const data = await globalInstance.post("/api/v1/users/login", formData);
       console.log(data);
+      setResponseData(data?.data);
       setButtonLoading(false);
 
-      if (data?.status !== 200) {
-        toast.error("Error occured", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        throw new Error("error code 200");
-      } else if (data?.data?.message === "Invalid credentials") {
-        toast.error("Invalid credentials", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        throw new Error("credentials invalid");
-      } else if (data?.data?.code === 404) {
-        toast.error("User not found", {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        throw new Error("User not found");
+      if (data?.data?.code == 404) {
+        setErrorModal(true);
+        throw new Error("Invalid credentials");
       } else {
-        toast.success(`let's continue ${data?.data?.user?.name}`, {
-          position: "top-center",
-          autoClose: 3000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          transition: Bounce,
-        });
-        navigate("/dashboard");
+        setErrorModal(false);
       }
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
   };
 
+  function handleErrorclick() {
+    setErrorModal(false);
+  }
   return (
     <div id="login">
-      <ToastContainer />
+      {errorModal && !responseData?.ok && (
+        <ErrorComp
+          message={responseData?.message}
+          additionalButton={true}
+          onClickFunction={handleErrorclick}
+        />
+      )}
       <div
         className={`${
           isLoginOpen ? "universal-visible-sidebar" : "universal-hidden-sidebar"
