@@ -1,7 +1,7 @@
-import Landing from "./Landing";
-import Navbar from "./Navbar";
-import Signup from "./auth/signup";
-import Login from "./auth/Login";
+import Landing from "../components/Landing";
+import Navbar from "../components/Navbar";
+import Signup from "../components/auth/signup";
+import Login from "../components/auth/Login";
 
 function LandingPage() {
   return (
