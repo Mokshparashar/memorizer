@@ -1,6 +1,11 @@
+import { FunctionComponent, ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
-const RouteProtection = ({ children }) => {
+interface PropType {
+  children: ReactNode;
+}
+
+const RouteProtection: FunctionComponent<PropType> = ({ children }) => {
   const accessToken = localStorage.getItem("accessToken");
   const location = useLocation();
 
