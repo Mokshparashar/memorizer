@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import RouteProtection from "../src/utils/routeProtection.tsx";
 import App from "./App.tsx";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LandingPage from "./pages/LandingPage.tsx"
+import LandingPage from "./pages/LandingPage.tsx";
 
 import GlobalContext from "./context/globalContext.tsx";
-import Dashboard from "./pages/Dashboard.tsx"
+import Dashboard from "./pages/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <RouteProtection>
+        <Dashboard />
+      </RouteProtection>
+    ),
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")!).render(

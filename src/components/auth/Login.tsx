@@ -47,6 +47,8 @@ function Login() {
       setButtonLoading(true);
       const data = await globalInstance.post("/api/v1/users/login", formData);
       console.log(data);
+      localStorage.setItem("accessToken",data?.data?.accessToken)
+      localStorage.setItem("refreshToken",data?.data?.refreshToken)
       setResponseData(data?.data);
       setButtonLoading(false);
 
