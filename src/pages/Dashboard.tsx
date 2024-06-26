@@ -2,8 +2,14 @@ import React from "react";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { MdTurnRight } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
+  function handleLogout() {
+    localStorage.clear();
+    navigate("/");
+  }
   return (
     <div
       className="w-screeen h-screen"
@@ -11,7 +17,10 @@ const Dashboard: React.FC = () => {
     >
       <nav className="w-screen h-14 bg-white shadow-gray-300 shadow-sm flex items-center justify-between px-4">
         <div className="bg-blue-500 text-white px-4 py-2 rounded-full">M</div>
-        <button className="text-red-500 bg-red-100 px-2 py-1 rounded-md">
+        <button
+          className="text-red-500 bg-red-100 px-2 py-1 rounded-md"
+          onClick={handleLogout}
+        >
           Logout
         </button>
       </nav>
