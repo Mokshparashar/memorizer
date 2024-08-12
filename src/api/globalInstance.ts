@@ -8,5 +8,6 @@ export const globalInstance = axios.create({
 
   headers: {
     "Content-Type": "Application/json",
+   
   },
 });
